@@ -9,7 +9,7 @@ fn setup() -> (Client, Runtime) {
     let runtime = Runtime::new().unwrap();
     let (client, conn) = runtime
         .block_on(tokio_postgres::connect(
-            "host=localhost port=5433 user=postgres",
+            "host=localhost port=5432 user=postgres",
             NoTls,
         ))
         .unwrap();

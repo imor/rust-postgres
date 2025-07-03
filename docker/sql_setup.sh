@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-cat > "$PGDATA/server.key" <<-EOKEY
+cat >"$PGDATA/server.key" <<-EOKEY
 -----BEGIN RSA PRIVATE KEY-----
 MIIEpAIBAAKCAQEAllItXwrj62MkxKVlz2FimJk42WWc3K82Rn2vAl6z38zQxSCj
 t9uWwXWTx5YOdGiUcA+JUAruZxqN7vdfphJoYtTrcrpT4rC/FsCMImBxkj1cxdYT
@@ -32,7 +32,7 @@ JhLfvh4ab3KyoK/iimifvcoS5z9gp7IBFKMyh5IeJ9Y75TgcfJ5HMg==
 EOKEY
 chmod 0600 "$PGDATA/server.key"
 
-cat > "$PGDATA/server.crt" <<-EOCERT
+cat >"$PGDATA/server.crt" <<-EOCERT
 -----BEGIN CERTIFICATE-----
 MIID9DCCAtygAwIBAgIJAIYfg4EQ2pVAMA0GCSqGSIb3DQEBBQUAMFkxCzAJBgNV
 BAYTAkFVMRMwEQYDVQQIEwpTb21lLVN0YXRlMSEwHwYDVQQKExhJbnRlcm5ldCBX
@@ -59,15 +59,15 @@ NmFaAhoxnXA=
 -----END CERTIFICATE-----
 EOCERT
 
-cat >> "$PGDATA/postgresql.conf" <<-EOCONF
-port = 5433
+cat >>"$PGDATA/postgresql.conf" <<-EOCONF
+port = 5432
 ssl = on
 ssl_cert_file = 'server.crt'
 ssl_key_file = 'server.key'
 wal_level = logical
 EOCONF
 
-cat > "$PGDATA/pg_hba.conf" <<-EOCONF
+cat >"$PGDATA/pg_hba.conf" <<-EOCONF
 # TYPE  DATABASE        USER            ADDRESS                 METHOD
 host    all             pass_user       0.0.0.0/0            password
 host    all             md5_user        0.0.0.0/0            md5

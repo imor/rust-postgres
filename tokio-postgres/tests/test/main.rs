@@ -56,7 +56,7 @@ impl<F: Future> Future for Cancellable<F> {
 }
 
 async fn connect_raw(s: &str) -> Result<(Client, Connection<TcpStream, NoTlsStream>), Error> {
-    let socket = TcpStream::connect("127.0.0.1:5433").await.unwrap();
+    let socket = TcpStream::connect("127.0.0.1:5432").await.unwrap();
     let config = s.parse::<Config>().unwrap();
     config.connect_raw(socket, NoTls).await
 }
@@ -364,7 +364,7 @@ async fn simple_query() {
 async fn cancel_query_raw() {
     let client = connect("user=postgres").await;
 
-    let socket = TcpStream::connect("127.0.0.1:5433").await.unwrap();
+    let socket = TcpStream::connect("127.0.0.1:5432").await.unwrap();
     let cancel_token = client.cancel_token();
     let cancel = cancel_token.cancel_query_raw(socket, NoTls);
     let cancel = time::sleep(Duration::from_millis(100)).then(|()| cancel);

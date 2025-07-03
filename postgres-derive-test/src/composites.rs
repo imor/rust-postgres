@@ -12,7 +12,7 @@ fn defaults() {
         price: Option<f64>,
     }
 
-    let mut conn = Client::connect("user=postgres host=localhost port=5433", NoTls).unwrap();
+    let mut conn = Client::connect("user=postgres host=localhost port=5432", NoTls).unwrap();
     conn.batch_execute(
         "CREATE TYPE pg_temp.\"InventoryItem\" AS (
             name TEXT,
@@ -57,7 +57,7 @@ fn name_overrides() {
         _price: Option<f64>,
     }
 
-    let mut conn = Client::connect("user=postgres host=localhost port=5433", NoTls).unwrap();
+    let mut conn = Client::connect("user=postgres host=localhost port=5432", NoTls).unwrap();
     conn.batch_execute(
         "CREATE TYPE pg_temp.inventory_item AS (
             name TEXT,
@@ -100,7 +100,7 @@ fn rename_all_overrides() {
         price: Option<f64>,
     }
 
-    let mut conn = Client::connect("user=postgres host=localhost port=5433", NoTls).unwrap();
+    let mut conn = Client::connect("user=postgres host=localhost port=5432", NoTls).unwrap();
     conn.batch_execute(
         "CREATE TYPE pg_temp.inventory_item AS (
             \"NAME\" TEXT,
@@ -141,7 +141,7 @@ fn wrong_name() {
         price: Option<f64>,
     }
 
-    let mut conn = Client::connect("user=postgres host=localhost port=5433", NoTls).unwrap();
+    let mut conn = Client::connect("user=postgres host=localhost port=5432", NoTls).unwrap();
     conn.batch_execute(
         "CREATE TYPE pg_temp.inventory_item AS (
             name TEXT,
@@ -174,7 +174,7 @@ fn extra_field() {
         foo: i32,
     }
 
-    let mut conn = Client::connect("user=postgres host=localhost port=5433", NoTls).unwrap();
+    let mut conn = Client::connect("user=postgres host=localhost port=5432", NoTls).unwrap();
     conn.batch_execute(
         "CREATE TYPE pg_temp.inventory_item AS (
             name TEXT,
@@ -206,7 +206,7 @@ fn missing_field() {
         supplier_id: i32,
     }
 
-    let mut conn = Client::connect("user=postgres host=localhost port=5433", NoTls).unwrap();
+    let mut conn = Client::connect("user=postgres host=localhost port=5432", NoTls).unwrap();
     conn.batch_execute(
         "CREATE TYPE pg_temp.inventory_item AS (
             name TEXT,
@@ -237,7 +237,7 @@ fn wrong_type() {
         price: i32,
     }
 
-    let mut conn = Client::connect("user=postgres host=localhost port=5433", NoTls).unwrap();
+    let mut conn = Client::connect("user=postgres host=localhost port=5432", NoTls).unwrap();
     conn.batch_execute(
         "CREATE TYPE pg_temp.inventory_item AS (
             name TEXT,
@@ -267,7 +267,7 @@ fn raw_ident_field() {
         r#type: String,
     }
 
-    let mut conn = Client::connect("user=postgres host=localhost port=5433", NoTls).unwrap();
+    let mut conn = Client::connect("user=postgres host=localhost port=5432", NoTls).unwrap();
     conn.batch_execute(
         "CREATE TYPE pg_temp.inventory_item AS (
             type TEXT
@@ -310,7 +310,7 @@ fn generics() {
     const SUPPLIER_ID: i32 = 100;
     const PRICE: f64 = 15.50;
 
-    let mut conn = Client::connect("user=postgres host=localhost port=5433", NoTls).unwrap();
+    let mut conn = Client::connect("user=postgres host=localhost port=5432", NoTls).unwrap();
     conn.batch_execute(
         "CREATE TYPE pg_temp.\"InventoryItem\" AS (
             name TEXT,

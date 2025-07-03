@@ -11,7 +11,7 @@ fn defaults() {
         Baz,
     }
 
-    let mut conn = Client::connect("user=postgres host=localhost port=5433", NoTls).unwrap();
+    let mut conn = Client::connect("user=postgres host=localhost port=5432", NoTls).unwrap();
     conn.execute("CREATE TYPE pg_temp.\"Foo\" AS ENUM ('Bar', 'Baz')", &[])
         .unwrap();
 
@@ -35,7 +35,7 @@ fn name_overrides() {
         Happy,
     }
 
-    let mut conn = Client::connect("user=postgres host=localhost port=5433", NoTls).unwrap();
+    let mut conn = Client::connect("user=postgres host=localhost port=5432", NoTls).unwrap();
     conn.execute(
         "CREATE TYPE pg_temp.mood AS ENUM ('sad', 'ok', 'happy')",
         &[],
@@ -64,7 +64,7 @@ fn rename_all_overrides() {
         VeryHappy,
     }
 
-    let mut conn = Client::connect("user=postgres host=localhost port=5433", NoTls).unwrap();
+    let mut conn = Client::connect("user=postgres host=localhost port=5432", NoTls).unwrap();
     conn.execute(
         "CREATE TYPE pg_temp.mood AS ENUM ('very_sad', 'okay', 'very_happy')",
         &[],
@@ -90,7 +90,7 @@ fn wrong_name() {
         Baz,
     }
 
-    let mut conn = Client::connect("user=postgres host=localhost port=5433", NoTls).unwrap();
+    let mut conn = Client::connect("user=postgres host=localhost port=5432", NoTls).unwrap();
     conn.execute("CREATE TYPE pg_temp.foo AS ENUM ('Bar', 'Baz')", &[])
         .unwrap();
 
@@ -108,7 +108,7 @@ fn extra_variant() {
         Buz,
     }
 
-    let mut conn = Client::connect("user=postgres host=localhost port=5433", NoTls).unwrap();
+    let mut conn = Client::connect("user=postgres host=localhost port=5432", NoTls).unwrap();
     conn.execute("CREATE TYPE pg_temp.foo AS ENUM ('Bar', 'Baz')", &[])
         .unwrap();
 
@@ -124,7 +124,7 @@ fn missing_variant() {
         Bar,
     }
 
-    let mut conn = Client::connect("user=postgres host=localhost port=5433", NoTls).unwrap();
+    let mut conn = Client::connect("user=postgres host=localhost port=5432", NoTls).unwrap();
     conn.execute("CREATE TYPE pg_temp.foo AS ENUM ('Bar', 'Baz')", &[])
         .unwrap();
 
@@ -140,7 +140,7 @@ fn allow_mismatch_enums() {
         Bar,
     }
 
-    let mut conn = Client::connect("user=postgres host=localhost port=5433", NoTls).unwrap();
+    let mut conn = Client::connect("user=postgres host=localhost port=5432", NoTls).unwrap();
     conn.execute("CREATE TYPE pg_temp.\"Foo\" AS ENUM ('Bar', 'Baz')", &[])
         .unwrap();
 
@@ -157,7 +157,7 @@ fn missing_enum_variant() {
         Buz,
     }
 
-    let mut conn = Client::connect("user=postgres host=localhost port=5433", NoTls).unwrap();
+    let mut conn = Client::connect("user=postgres host=localhost port=5432", NoTls).unwrap();
     conn.execute("CREATE TYPE pg_temp.\"Foo\" AS ENUM ('Bar', 'Baz')", &[])
         .unwrap();
 
@@ -178,7 +178,7 @@ fn allow_mismatch_and_renaming() {
         Buz,
     }
 
-    let mut conn = Client::connect("user=postgres host=localhost port=5433", NoTls).unwrap();
+    let mut conn = Client::connect("user=postgres host=localhost port=5432", NoTls).unwrap();
     conn.execute("CREATE TYPE pg_temp.foo AS ENUM ('bar', 'baz', 'buz')", &[])
         .unwrap();
 
@@ -194,7 +194,7 @@ fn wrong_name_and_allow_mismatch() {
         Bar,
     }
 
-    let mut conn = Client::connect("user=postgres host=localhost port=5433", NoTls).unwrap();
+    let mut conn = Client::connect("user=postgres host=localhost port=5432", NoTls).unwrap();
     conn.execute("CREATE TYPE pg_temp.foo AS ENUM ('Bar', 'Baz')", &[])
         .unwrap();
 

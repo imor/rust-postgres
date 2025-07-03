@@ -8,7 +8,7 @@ fn round_trip() {
     struct UserId(i32);
 
     assert_eq!(
-        Client::connect("user=postgres host=localhost port=5433", NoTls)
+        Client::connect("user=postgres host=localhost port=5432", NoTls)
             .unwrap()
             .query_one("SELECT $1::integer", &[&UserId(123)])
             .unwrap()

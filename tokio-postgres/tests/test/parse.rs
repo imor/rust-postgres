@@ -64,8 +64,8 @@ fn url() {
         Config::new().host("localhost").port(5432),
     );
     check(
-        "postgresql://localhost:5433",
-        Config::new().host("localhost").port(5433),
+        "postgresql://localhost:5432",
+        Config::new().host("localhost").port(5432),
     );
     check(
         "postgresql://localhost/mydb",
@@ -105,8 +105,8 @@ fn url() {
             .application_name("myapp"),
     );
     check(
-        "postgresql:///mydb?host=localhost&port=5433",
-        Config::new().dbname("mydb").host("localhost").port(5433),
+        "postgresql:///mydb?host=localhost&port=5432",
+        Config::new().dbname("mydb").host("localhost").port(5432),
     );
     check(
         "postgresql://[2001:db8::1234]/database",
@@ -116,10 +116,10 @@ fn url() {
             .dbname("database"),
     );
     check(
-        "postgresql://[2001:db8::1234]:5433/database",
+        "postgresql://[2001:db8::1234]:5432/database",
         Config::new()
             .host("2001:db8::1234")
-            .port(5433)
+            .port(5432)
             .dbname("database"),
     );
     #[cfg(unix)]

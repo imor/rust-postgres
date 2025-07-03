@@ -13,7 +13,7 @@ use tokio_postgres::SimpleQueryMessage::Row;
 #[tokio::test]
 async fn test_replication() {
     // form SQL connection
-    let conninfo = "host=127.0.0.1 port=5433 user=postgres replication=database";
+    let conninfo = "host=127.0.0.1 port=5432 user=postgres replication=database";
     let (client, connection) = tokio_postgres::connect(conninfo, NoTls).await.unwrap();
     tokio::spawn(async move {
         if let Err(e) = connection.await {

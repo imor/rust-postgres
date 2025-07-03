@@ -8,7 +8,7 @@ fn defaults() {
     #[derive(FromSql, ToSql, Debug, PartialEq)]
     struct SessionId(Vec<u8>);
 
-    let mut conn = Client::connect("user=postgres host=localhost port=5433", NoTls).unwrap();
+    let mut conn = Client::connect("user=postgres host=localhost port=5432", NoTls).unwrap();
     conn.execute(
         "CREATE DOMAIN pg_temp.\"SessionId\" AS bytea CHECK(octet_length(VALUE) = 16);",
         &[],
@@ -31,7 +31,7 @@ fn name_overrides() {
     #[postgres(name = "session_id")]
     struct SessionId(Vec<u8>);
 
-    let mut conn = Client::connect("user=postgres host=localhost port=5433", NoTls).unwrap();
+    let mut conn = Client::connect("user=postgres host=localhost port=5432", NoTls).unwrap();
     conn.execute(
         "CREATE DOMAIN pg_temp.session_id AS bytea CHECK(octet_length(VALUE) = 16);",
         &[],
@@ -53,7 +53,7 @@ fn wrong_name() {
     #[derive(FromSql, ToSql, Debug, PartialEq)]
     struct SessionId(Vec<u8>);
 
-    let mut conn = Client::connect("user=postgres host=localhost port=5433", NoTls).unwrap();
+    let mut conn = Client::connect("user=postgres host=localhost port=5432", NoTls).unwrap();
     conn.execute(
         "CREATE DOMAIN pg_temp.session_id AS bytea CHECK(octet_length(VALUE) = 16);",
         &[],
@@ -72,7 +72,7 @@ fn wrong_type() {
     #[postgres(name = "session_id")]
     struct SessionId(i32);
 
-    let mut conn = Client::connect("user=postgres host=localhost port=5433", NoTls).unwrap();
+    let mut conn = Client::connect("user=postgres host=localhost port=5432", NoTls).unwrap();
     conn.execute(
         "CREATE DOMAIN pg_temp.session_id AS bytea CHECK(octet_length(VALUE) = 16);",
         &[],
@@ -97,7 +97,7 @@ fn domain_in_composite() {
         domain: Domain,
     }
 
-    let mut conn = Client::connect("user=postgres host=localhost port=5433", NoTls).unwrap();
+    let mut conn = Client::connect("user=postgres host=localhost port=5432", NoTls).unwrap();
     conn.batch_execute(
         "
             CREATE DOMAIN pg_temp.domain AS TEXT;\
