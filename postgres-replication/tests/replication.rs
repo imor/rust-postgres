@@ -50,9 +50,7 @@ async fn test_replication() {
 
     let slot = "test_logical_slot";
 
-    let query = format!(
-        r#"CREATE_REPLICATION_SLOT {slot:?} TEMPORARY LOGICAL "pgoutput""#
-    );
+    let query = format!(r#"CREATE_REPLICATION_SLOT {slot:?} TEMPORARY LOGICAL "pgoutput""#);
     let slot_query = client.simple_query(&query).await.unwrap();
     let lsn = if let Row(row) = &slot_query[1] {
         row.get("consistent_point").unwrap()
@@ -67,9 +65,7 @@ async fn test_replication() {
         .unwrap();
 
     let options = r#"("proto_version" '1', "publication_names" 'test_pub')"#;
-    let query = format!(
-        r#"START_REPLICATION SLOT {slot:?} LOGICAL {lsn} {options}"#
-    );
+    let query = format!(r#"START_REPLICATION SLOT {slot:?} LOGICAL {lsn} {options}"#);
     let copy_stream = client
         .copy_both_simple::<bytes::Bytes>(&query)
         .await

@@ -624,10 +624,9 @@ impl<'a, T: FromSql<'a>, const N: usize> FromSql<'a> for [T; N] {
             T::from_sql_nullable(member_type, v)
         })?;
         if values.next()?.is_some() {
-            return Err(format!(
-                "excess elements in array (expected {N}, got more than that)",
-            )
-            .into());
+            return Err(
+                format!("excess elements in array (expected {N}, got more than that)",).into(),
+            );
         }
 
         Ok(out)
