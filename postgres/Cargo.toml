@@ -10,15 +10,8 @@ readme = "../README.md"
 keywords = ["database", "postgres", "postgresql", "sql"]
 categories = ["database"]
 
-[[bench]]
-name = "bench"
-harness = false
-
 [package.metadata.docs.rs]
 all-features = true
-
-[badges]
-circle-ci = { repository = "sfackler/rust-postgres" }
 
 [features]
 array-impls = ["tokio-postgres/array-impls"]
@@ -40,8 +33,15 @@ bytes = "1.0"
 fallible-iterator = "0.2"
 futures-util = { version = "0.3.14", features = ["sink"] }
 log = "0.4"
-tokio-postgres = { version = "0.7.11", path = "../tokio-postgres" }
 tokio = { version = "1.0", features = ["rt", "time"] }
+tokio-postgres = { version = "0.7.11", path = "../tokio-postgres" }
 
 [dev-dependencies]
 criterion = "0.5"
+
+[[bench]]
+name = "bench"
+harness = false
+
+[badges]
+circle-ci = { repository = "sfackler/rust-postgres" }

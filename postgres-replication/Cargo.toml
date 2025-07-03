@@ -12,14 +12,14 @@ readme = "../README.md"
 default = []
 
 [dependencies]
-bytes = "1.0"
-memchr = "2.0"
 byteorder = "1.0"
+bytes = "1.0"
+futures-util = { version = "0.3", features = ["sink"] }
+memchr = "2.0"
+pin-project-lite = "0.2"
 postgres-protocol = { version = "0.6.7", path = "../postgres-protocol" }
 postgres-types = { version = "0.2.7", path = "../postgres-types" }
 tokio-postgres = { version = "0.7.11", path = "../tokio-postgres", features = ["runtime"] }
-futures-util = { version = "0.3", features = ["sink"] }
-pin-project-lite = "0.2"
 
 [dev-dependencies]
 tokio = { version = "1.0", features = [
