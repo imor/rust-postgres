@@ -1,3 +1,31 @@
+# Database setup and teardown tasks
+[tasks.db-start]
+description = "Start PostgreSQL database for testing"
+command = "docker-compose"
+args = ["up", "-d"]
+
+[tasks.db-stop]
+description = "Stop PostgreSQL database"
+command = "docker-compose"
+args = ["down"]
+
+[tasks.db-status]
+description = "Check PostgreSQL database status"
+command = "docker-compose"
+args = ["ps"]
+
+[tasks.db-logs]
+description = "Show PostgreSQL database logs"
+command = "docker-compose"
+args = ["logs", "-f", "postgres"]
+
+[tasks.db-wait]
+description = "Wait for PostgreSQL database to be ready"
+command = "sleep"
+args = ["5"]
+dependencies = ["db-start"]
+
+# Test tasks
 [tasks.test-all]
 description = "Run all tests with all features"
 command = "cargo"
@@ -32,10 +60,42 @@ description = "Format all code"
 command = "cargo"
 args = ["fmt", "--all"]
 
+# Workflow tasks
+[tasks.dev-setup]
+description = "Setup development environment (start database and wait)"
+dependencies = ["db-wait"]
+
+[tasks.dev-test]
+description = "Run development tests"
+dependencies = ["test-all"]
+
+[tasks.dev-teardown]
+description = "Clean up development environment (stop database)"
+dependencies = ["db-stop"]
+
+[tasks.ci-test]
+description = "Run CI-style tests (all tests with database setup and teardown)"
+dependencies = ["test-all", "db-stop"]
+
+[tasks.quick-test]
+description = "Quick test cycle: setup -> test -> teardown"
+run_task = { name = [
+    "dev-setup",
+    "test-all",
+    "dev-teardown",
+], parallel = false }
+
+[tasks.full-test]
+description = "Full test cycle: setup -> all tests -> teardown"
+run_task = { name = [
+    "dev-setup",
+    "test-all",
+    "dev-teardown",
+], parallel = false }
+
 [tasks.check-all]
 description = "Run all checks"
 dependencies = ["clippy", "sort", "udeps", "test-all"]
 
 [config]
 default_to_workspace = false
-
