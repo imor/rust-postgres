@@ -77,7 +77,7 @@ impl ReplicationMessage<Bytes> {
             tag => {
                 return Err(io::Error::new(
                     io::ErrorKind::InvalidInput,
-                    format!("unknown replication message tag `{}`", tag),
+                    format!("unknown replication message tag `{tag}`"),
                 ));
             }
         };
@@ -220,7 +220,7 @@ impl LogicalReplicationMessage {
                     tag => {
                         return Err(io::Error::new(
                             io::ErrorKind::InvalidInput,
-                            format!("unknown replica identity tag `{}`", tag),
+                            format!("unknown replica identity tag `{tag}`"),
                         ));
                     }
                 };
@@ -253,7 +253,7 @@ impl LogicalReplicationMessage {
                     tag => {
                         return Err(io::Error::new(
                             io::ErrorKind::InvalidInput,
-                            format!("unexpected tuple tag `{}`", tag),
+                            format!("unexpected tuple tag `{tag}`"),
                         ));
                     }
                 };
@@ -281,7 +281,7 @@ impl LogicalReplicationMessage {
                             tag => {
                                 return Err(io::Error::new(
                                     io::ErrorKind::InvalidInput,
-                                    format!("unexpected tuple tag `{}`", tag),
+                                    format!("unexpected tuple tag `{tag}`"),
                                 ));
                             }
                         }
@@ -289,7 +289,7 @@ impl LogicalReplicationMessage {
                     tag => {
                         return Err(io::Error::new(
                             io::ErrorKind::InvalidInput,
-                            format!("unknown tuple tag `{}`", tag),
+                            format!("unknown tuple tag `{tag}`"),
                         ));
                     }
                 };
@@ -314,7 +314,7 @@ impl LogicalReplicationMessage {
                     tag => {
                         return Err(io::Error::new(
                             io::ErrorKind::InvalidInput,
-                            format!("unknown tuple tag `{}`", tag),
+                            format!("unknown tuple tag `{tag}`"),
                         ));
                     }
                 }
@@ -339,7 +339,7 @@ impl LogicalReplicationMessage {
             tag => {
                 return Err(io::Error::new(
                     io::ErrorKind::InvalidInput,
-                    format!("unknown replication message tag `{}`", tag),
+                    format!("unknown replication message tag `{tag}`"),
                 ));
             }
         };
@@ -446,7 +446,7 @@ impl TupleData {
             tag => {
                 return Err(io::Error::new(
                     io::ErrorKind::InvalidInput,
-                    format!("unknown replication message tag `{}`", tag),
+                    format!("unknown replication message tag `{tag}`"),
                 ));
             }
         };

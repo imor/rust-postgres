@@ -237,7 +237,7 @@ pub async fn copy_in_simple<T>(client: &InnerClient, query: &str) -> Result<Copy
 where
     T: Buf + 'static + Send,
 {
-    debug!("executing copy in query {}", query);
+    debug!("executing copy in query {query}");
 
     let buf = simple_query::encode(client, query)?;
     start(client, buf, true).await

@@ -313,7 +313,7 @@ impl fmt::Display for Type {
     fn fmt(&self, fmt: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self.schema() {
             "public" | "pg_catalog" => {}
-            schema => write!(fmt, "{}.", schema)?,
+            schema => write!(fmt, "{schema}.")?,
         }
         fmt.write_str(self.name())
     }
@@ -619,14 +619,13 @@ impl<'a, T: FromSql<'a>, const N: usize> FromSql<'a> for [T; N] {
             let v = values
                 .next()?
                 .ok_or_else(|| -> Box<dyn Error + Sync + Send> {
-                    format!("too few elements in array (expected {}, got {})", N, i).into()
+                    format!("too few elements in array (expected {N}, got {i})").into()
                 })?;
             T::from_sql_nullable(member_type, v)
         })?;
         if values.next()?.is_some() {
             return Err(format!(
-                "excess elements in array (expected {}, got more than that)",
-                N,
+                "excess elements in array (expected {N}, got more than that)",
             )
             .into());
         }
@@ -908,7 +907,7 @@ pub enum Format {
     Binary,
 }
 
-impl<'a, T> ToSql for &'a T
+impl<T> ToSql for &T
 where
     T: ToSql,
 {
@@ -957,7 +956,7 @@ impl<T: ToSql> ToSql for Option<T> {
     to_sql_checked!();
 }
 
-impl<'a, T: ToSql> ToSql for &'a [T] {
+impl<T: ToSql> ToSql for &[T] {
     fn to_sql(&self, ty: &Type, w: &mut BytesMut) -> Result<IsNull, Box<dyn Error + Sync + Send>> {
         let member_type = match *ty.kind() {
             Kind::Array(ref member) => member,
@@ -998,7 +997,7 @@ impl<'a, T: ToSql> ToSql for &'a [T] {
     to_sql_checked!();
 }
 
-impl<'a> ToSql for &'a [u8] {
+impl ToSql for &[u8] {
     fn to_sql(&self, _: &Type, w: &mut BytesMut) -> Result<IsNull, Box<dyn Error + Sync + Send>> {
         types::bytea_to_sql(self, w);
         Ok(IsNull::No)
@@ -1082,7 +1081,7 @@ impl ToSql for Vec<u8> {
     to_sql_checked!();
 }
 
-impl<'a> ToSql for &'a str {
+impl ToSql for &str {
     fn to_sql(&self, ty: &Type, w: &mut BytesMut) -> Result<IsNull, Box<dyn Error + Sync + Send>> {
         match ty.name() {
             "ltree" => types::ltree_to_sql(self, w),

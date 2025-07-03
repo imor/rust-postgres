@@ -180,7 +180,7 @@ impl ScramSha256 {
                     password,
                     channel_binding,
                 } => (nonce, password, channel_binding),
-                _ => return Err(io::Error::new(io::ErrorKind::Other, "invalid SCRAM state")),
+                _ => return Err(io::Error::other("invalid SCRAM state")),
             };
 
         let message =
@@ -252,7 +252,7 @@ impl ScramSha256 {
                 salted_password,
                 auth_message,
             } => (salted_password, auth_message),
-            _ => return Err(io::Error::new(io::ErrorKind::Other, "invalid SCRAM state")),
+            _ => return Err(io::Error::other("invalid SCRAM state")),
         };
 
         let message =
@@ -262,9 +262,8 @@ impl ScramSha256 {
 
         let verifier = match parsed {
             ServerFinalMessage::Error(e) => {
-                return Err(io::Error::new(
-                    io::ErrorKind::Other,
-                    format!("SCRAM error: {}", e),
+                return Err(io::Error::other(
+                    format!("SCRAM error: {e}"),
                 ));
             }
             ServerFinalMessage::Verifier(verifier) => verifier,
@@ -306,8 +305,7 @@ impl<'a> Parser<'a> {
             Some((_, c)) if c == target => Ok(()),
             Some((i, c)) => {
                 let m = format!(
-                    "unexpected character at byte {}: expected `{}` but got `{}",
-                    i, target, c
+                    "unexpected character at byte {i}: expected `{target}` but got `{c}"
                 );
                 Err(io::Error::new(io::ErrorKind::InvalidInput, m))
             }
@@ -374,7 +372,7 @@ impl<'a> Parser<'a> {
         match self.it.peek() {
             Some(&(i, _)) => Err(io::Error::new(
                 io::ErrorKind::InvalidInput,
-                format!("unexpected trailing data at byte {}", i),
+                format!("unexpected trailing data at byte {i}"),
             )),
             None => Ok(()),
         }

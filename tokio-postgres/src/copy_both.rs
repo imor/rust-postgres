@@ -344,7 +344,7 @@ pub async fn copy_both_simple<T>(
 where
     T: Buf + 'static + Send,
 {
-    debug!("executing copy both query {}", query);
+    debug!("executing copy both query {query}");
 
     let buf = simple_query::encode(client, query)?;
 

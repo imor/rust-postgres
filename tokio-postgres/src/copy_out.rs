@@ -12,7 +12,7 @@ use std::pin::Pin;
 use std::task::{Context, Poll};
 
 pub async fn copy_out_simple(client: &InnerClient, query: &str) -> Result<CopyOutStream, Error> {
-    debug!("executing copy out query {}", query);
+    debug!("executing copy out query {query}");
 
     let buf = simple_query::encode(client, query)?;
     let responses = start(client, buf, true).await?;
