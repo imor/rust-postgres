@@ -1,0 +1,41 @@
+[tasks.test-all]
+description = "Run all tests with all features"
+command = "cargo"
+args = ["nextest", "run", "--all-features"]
+
+[tasks.udeps]
+description = "Check for unused dependencies"
+command = "cargo"
+args = [
+    "+nightly",
+    "udeps",
+    "--release",
+    "--workspace",
+    "--all-targets",
+    "--all-features",
+]
+install_crate = { crate_name = "cargo-udeps", binary = "cargo-udeps", test_arg = "--help" }
+
+[tasks.clippy]
+description = "Run clippy on all targets with all features"
+command = "cargo"
+args = ["clippy", "--all-targets", "--all-features", "--", "-D", "warnings"]
+
+[tasks.sort]
+description = "Check if dependencies are sorted"
+command = "cargo"
+args = ["sort", "--check", "--workspace", "--grouped"]
+install_crate = { crate_name = "cargo-sort", binary = "cargo-sort", test_arg = "--help" }
+
+[tasks.fmt]
+description = "Format all code"
+command = "cargo"
+args = ["fmt", "--all"]
+
+[tasks.check-all]
+description = "Run all checks"
+dependencies = ["clippy", "sort", "udeps", "test-all"]
+
+[config]
+default_to_workspace = false
+
