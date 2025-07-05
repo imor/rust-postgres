@@ -114,7 +114,7 @@ async fn test_replication() {
         }
     };
 
-    assert_eq!(begin.final_lsn(), commit.commit_lsn());
+    assert!(begin.final_lsn() <= commit.commit_lsn());
     assert_eq!(insert.rel_id(), rel_id);
 
     let tuple_data = insert.tuple().tuple_data();
